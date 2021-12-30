@@ -1,16 +1,29 @@
-import { createContext, useState } from "react";
-import { data } from "./data";
+import { createContext, useState, useEffect } from "react";
+import axios from "axios";
 export const BooksContext = createContext();
 
-const BooksContextProvider = (props) => {
-  const [state, setState] = useState({ bookList: data, cart: [] });
-
+const apiKey = "0oT6qnsaYYkGg27ScdjxmKllkRENXeBH";
+const apiId = "c5e2de00-0408-40cc-8c73-2d9d8b2eb876";
+const baseUrl = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${apiKey}`;
+const BooksContextProvider = ({ children }) => {
+  const [state, setState] = useState({
+    bookList: [],
+    cart: [],
+  });
+  useEffect(() => {
+    bookList();
+  }, []);
+  const bookList = async () => {
+    const data = await axios.get(baseUrl);
+    const booksArr = data.data.results.books;
+    setState({ ...state, bookList: booksArr });
+  };
   const addCart = (book) => {
     setState({
       ...state,
-      cart: state.cart.find((cartItem) => cartItem.id === book.id)
+      cart: state.cart.find((cartItem) => cartItem.rank === book.rank)
         ? state.cart.map((cartItem) =>
-            cartItem.id === book.id
+            cartItem.rank === book.rank
               ? { ...cartItem, count: cartItem.count + 1 }
               : cartItem
           )
@@ -42,11 +55,12 @@ const BooksContextProvider = (props) => {
       ),
     });
   };
+
   return (
     <BooksContext.Provider
       value={{ state: state, addCart, increase, decrease, removeFromCart }}
     >
-      {props.children}
+      {children}
     </BooksContext.Provider>
   );
 };

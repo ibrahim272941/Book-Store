@@ -11,29 +11,29 @@ const Products = () => {
     0
   );
   return (
-    <>
+    <div className="product-list">
       <nav>
         <span>Book Lists</span>
 
         <Link style={{ textDecoration: "none" }} to="/cart">
-          My Cart <span style={{ color: "red" }}>{totalCartCount}</span>
+          Selected Books <span style={{ color: "red" }}>{totalCartCount}</span>
         </Link>
       </nav>
 
       <div className="book-lists">
         {context.state.bookList.map((book, i) => (
           <div key={i} className="book">
-            <img src={book.image} />
+            <img src={book.book_image} />
             <div>
-              <h4>{book.name}</h4>
+              {/* <h4>{book.name}</h4>
               <p>Author: {book.author}</p>
-              <p>Price: € {book.price}</p>
-              <button onClick={() => context.addCart(book)}>Add to Cart</button>
+              <p>Price: € {book.price}</p> */}
+              <button onClick={() => context.addCart(book)}>Choose Book</button>
             </div>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

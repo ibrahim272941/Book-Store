@@ -48,7 +48,7 @@ export default function App() {
   return (
     <BooksContextProvider>
       <div className="App">
-        <h1>Fake Book Store</h1>
+        <h1>The New York Times Best Seller</h1>
       </div>
       <AppRouter />
     </BooksContextProvider>

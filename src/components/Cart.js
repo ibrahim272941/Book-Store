@@ -4,7 +4,7 @@ import { BooksContext } from "../BooksContext";
 
 const Cart = () => {
   const context = useContext(BooksContext);
-
+  console.log(context);
   const totalCartAmount = context.state.cart.reduce(
     (total, book) => (total = total + book.price * book.count),
     0
@@ -15,30 +15,42 @@ const Cart = () => {
   );
   return (
     <div>
-      <h2>
-        <Link to="/">Book Lists</Link> <span>My Cart({totalCartCount})</span>
-      </h2>
+      <div className="cart-box-nav">
+        <h2>
+          <Link to="/">Book Lists</Link>{" "}
+        </h2>
+        {context ? <span></span> : <span>My Cart({totalCartCount})</span>}
+      </div>
 
-      <h3>Total Cart Price: €{totalCartAmount.toFixed(2)}</h3>
+      {/* <h3>Total Cart Price: €{totalCartAmount.toFixed(2)}</h3> */}
 
-      {context.state.cart.map((book, i) => (
-        <div key={i} className="book-cart">
-          <img src={book.image} />
-
-          <div>
-            <h4>{book.name}</h4>
-            <p>Author: {book.author}</p>
-            <p>Price: €{book.price}</p>
-            <p>Total: €{(book.price * book.count).toFixed(2)}</p>
-            <p>You have a total of {book.count} of this book in your cart.</p>
-            <button onClick={() => context.decrease(book.id)}>-</button>
-            <button onClick={() => context.removeFromCart(book.id)}>
-              Remove
-            </button>
-            <button onClick={() => context.increase(book.id)}>+</button>
+      {context.state.cart.map((book, i) => {
+        console.log(book.buy_links[0].url);
+        return (
+          <div key={i} className="book-cart">
+            <div className="selected-book">
+              <img src={book.book_image} />
+              {/* <button onClick={() => context.removeFromCart(book.rank)}>
+                Remove
+              </button> */}
+              {/* <p>Price: €{book.price}</p>
+              <p>Total: €{(book.price * book.count).toFixed(2)}</p>
+              <p>You have a total of {book.count} of this book in your cart.</p>
+              <button onClick={() => context.decrease(book.id)}>-</button>
+              
+              <button onClick={() => context.increase(book.id)}>+</button> */}
+            </div>
+            <div className="book-info">
+              <p>Author: {book.author}</p>
+              <p>{book.description}</p>
+              <p>
+                Click more information and buy to
+                <a href={book.buy_links[0].url}> {book.buy_links[0].name}</a>
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
