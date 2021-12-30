@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { BooksContext } from "../App";
+import { BooksContext } from "../BooksContext";
 
 const Cart = () => {
   const context = useContext(BooksContext);

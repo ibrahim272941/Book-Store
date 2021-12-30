@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { BooksContext } from "../App";
+import { BooksContext } from "../BooksContext";
 
 const Products = () => {
   const context = useContext(BooksContext);
@@ -16,7 +16,7 @@ const Products = () => {
         <span>Book Lists</span>
 
         <Link style={{ textDecoration: "none" }} to="/cart">
-          My Cart <span style={{ color: "red" }}>{totalCartCount}</span>{" "}
+          My Cart <span style={{ color: "red" }}>{totalCartCount}</span>
         </Link>
       </nav>
 
