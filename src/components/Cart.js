@@ -14,7 +14,7 @@ const Cart = () => {
     0
   );
   return (
-    <div>
+    <div className="cart-screen">
       <div className="cart-box-nav">
         <h2>
           <Link to="/">Book Lists</Link>{" "}
@@ -41,12 +41,29 @@ const Cart = () => {
               <button onClick={() => context.increase(book.id)}>+</button> */}
             </div>
             <div className="book-info">
-              <p>Author: {book.author}</p>
-              <p>{book.description}</p>
-              <p>
-                Click more information and buy to
-                <a href={book.buy_links[0].url}> {book.buy_links[0].name}</a>
-              </p>
+              <div className="title">
+                <p>
+                  {" "}
+                  <span>Author:</span> {book.author}
+                </p>
+                <p>{book.description}</p>
+                <div>Click more information and buy to</div>
+              </div>
+              <div>
+                <div className="links">
+                  {book.buy_links.map((link, i) => (
+                    <a
+                      className="buy-links"
+                      key={i}
+                      href={link.url}
+                      target="_blank"
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+                {/* <a href={book.buy_links[0].url}> {book.buy_links[0].name}</a> */}
+              </div>
             </div>
           </div>
         );
